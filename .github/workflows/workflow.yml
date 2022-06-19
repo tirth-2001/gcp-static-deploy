@@ -50,4 +50,4 @@ jobs:
         working-directory: build/latest
 
       - name: Deploy
-        run: gsutil -m rsync -d -c -r build/latest gs://$GCP_BUCKET
+        run: gsutil -m rsync -d -c -r build/latest gs://$GCP_BUCKET/build
