@@ -39,8 +39,10 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT }}
           export_default_credentials: true
 
-      - name: Deploy
+      - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
           name: build-artifact
+
+      - name: Deploy
         run: gsutil -m rsync -d -c -r build gs://$GCP_BUCKET
