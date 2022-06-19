@@ -47,9 +47,3 @@ jobs:
 
       - name: Upload to GCP bucket
         run: gsutil -m rsync -d -c -r build/latest gs://$GCP_BUCKET/build
-
-      - name: Sync to GCP working directory
-        run: gsutil rsync -r gs://$GCP_BUCKET ./react-ci-cd
-
-      - name: Deploy
-        run: cd react-ci-cd && gcloud app deploy
