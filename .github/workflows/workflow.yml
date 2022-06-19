@@ -34,7 +34,4 @@ jobs:
           export_default_credentials: true
 
       - name: Deploy
-      - run: gsutil -m rsync -d -c -r build gs://$GCP_BUCKET
-      - run: gsutil -m setmeta -h "Cache-Control:public, max-age=3600" gs://my-gcs-bucket/**/*.html
-      - run: gsutil -m setmeta -h "Cache-Control:public, max-age=31536000" gs://my-gcs-bucket/js/*.js
-      - run: gsutil -m setmeta -h "Cache-Control:public, max-age=31536000" gs://my-gcs-bucket/css/*.css
+        run: gsutil -m rsync -d -c -r build gs://$GCP_BUCKET
