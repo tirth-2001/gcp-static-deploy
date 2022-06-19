@@ -18,9 +18,9 @@ jobs:
       - name: 'Setup GCP'
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          service_account_key: ${{ secrets.GCS_SA_KEY }}
-          project_id: ${{ secrets.GCS_PROJECT }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT }}
           export_default_credentials: true
 
       - name: 'Deploy'
-      - run: gsutil -m rsync -d -r build/ gs://${{{ secrets.GCS_BUCKET }}}/
+      - run: gsutil -m rsync -d -r build/ gs://${{{ secrets.GCP_BUCKET }}}/
