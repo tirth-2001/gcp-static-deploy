@@ -47,7 +47,7 @@ jobs:
 
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: build
+        working-directory: build/latest
 
       - name: Deploy
-        run: gsutil -m rsync -d -c -r build gs://$GCP_BUCKET
+        run: gsutil -m rsync -d -c -r build/lates gs://$GCP_BUCKET
