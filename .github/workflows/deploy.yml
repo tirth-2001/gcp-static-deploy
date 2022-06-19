@@ -41,10 +41,13 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT }}
           export_default_credentials: true
 
-  download-artifact:
+  deploy:
     runs-on: ubuntu-latest
 
     needs: [build, setup-gcp]
+
+    env:
+      GCP_BUCKET: ${{ secrets.GCP_BUCKET }}
 
     steps:
       # Download build artifcats from temporary bucket
@@ -57,17 +60,7 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
         working-directory: build/latest
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    needs: [build, setup-gcp, download-artifact]
-
-    env:
-      GCP_BUCKET: ${{ secrets.GCP_BUCKET }}
-
-    steps:
-      # Upload build artifcats to GCP bucket
+      # Upload build artifcats to GCP bucket and deploy to app engine
       - name: Upload to Bucket
         run: gsutil -m rsync -d -c -r build/latest gs://$GCP_BUCKET/build
       - name: Sync to GCP working directory
