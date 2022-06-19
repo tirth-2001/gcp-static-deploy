@@ -21,13 +21,6 @@ jobs:
       # build app
       - name: build
         run: yarn build
-
-  upload-artifact:
-    runs-on: ubuntu-latest
-
-    needs: [build]
-
-    steps:
       # Upload build artifcats to temporary bucket
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
@@ -38,7 +31,7 @@ jobs:
   setup-gcp:
     runs-on: ubuntu-latest
 
-    needs: [build, upload-artifact]
+    needs: [build]
 
     steps:
       - name: Setup GCP
@@ -51,7 +44,7 @@ jobs:
   download-artifact:
     runs-on: ubuntu-latest
 
-    needs: [build, upload-artifact]
+    needs: [build]
 
     steps:
       # Download build artifcats from temporary bucket
@@ -68,7 +61,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    needs: [build, upload-artifact, setup-gcp, download-artifact]
+    needs: [build, setup-gcp, download-artifact]
 
     env:
       GCP_BUCKET: ${{ secrets.GCP_BUCKET }}
