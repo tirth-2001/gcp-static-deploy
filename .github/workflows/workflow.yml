@@ -45,4 +45,4 @@ jobs:
           name: build-artifact
 
       - name: Deploy
-        run: gsutil -m rsync -d -c -r build/ gs://$GCP_BUCKET
+        run: gsutil -m rsync -d -c -r /build/ gs://$GCP_BUCKET
