@@ -10,11 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install and Build
       - uses: actions/checkout@v3
-      - run: yarn
-      - run: yarn build
 
+      # install dependencies
+      - name: Install dependencies
+        run: yarn
+      # build app
+      - name: build
+        run: yarn build
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Setup GCP
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
